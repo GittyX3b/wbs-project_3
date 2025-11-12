@@ -7,6 +7,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="main.js" defer></script>
     <style type="text/tailwindcss">
+      @layer base {
+        @font-face {
+          font-family: 'icons';
+          src: url('./assets/font/fontello.eot?14379061');
+          src: url('./assets/font/fontello.eot?14379061#iefix')
+              format('embedded-opentype'),
+            url('./assets/font/fontello.woff?14379061') format('woff'),
+            url('./assets/font/fontello.ttf?14379061') format('truetype'),
+            url('./assets/font/fontello.svg?14379061#fontello') format('svg');
+          font-style: normal;
+          font-weight: normal;
+        }
+      }
       @theme {
         --color-poke-blue: #3b82f6;
         --color-poke-red: #ef3e36;
@@ -14,6 +27,12 @@
         --color-poke-yellow: #ffd447;
         --color-poke-gray-dark: #1e293b;
         --color-poke-gray-light: #f3f4f6;
+        --font-icons: 'icons';
+      }
+      @layer components {
+        .icon {
+          @apply normal-case not-italic antialiased text-[125%] text-poke-gray-dark;
+        }
       }
     </style>
   </head>
@@ -22,7 +41,11 @@
       id="wrapper"
       class="max-w-[1440px] w-full mx-auto flex flex-col min-h-screen"
     >
-      <header class="h-20 w-full"></header>
+      <header class="h-20 w-full">
+        <i class="icon font-icons">&#xf0c9;</i>
+        <i class="icon font-icons">&#xe800;</i>
+        <i class="icon font-icons">&#xe803;</i>
+      </header>
 
       <main class="flex-grow">
         <div
