@@ -1,5 +1,8 @@
 const URL = 'https://pokeapi.co/api/v2/pokemon/';
 const numberToFetch = 10;
+const pfxCatch = 'catch-';
+const pfxDelete = 'delete-';
+const pfxNotes = 'notes-'; // TODO: remove notes button here but keep in pokedex.js
 
 let pokeArr = [];
 
@@ -39,12 +42,24 @@ function createPage(pokeArr) {
 
 function createCard(data) {
   console.log('POKEMON DATA loaded:', pokeArr);
+  const isStored = false; // TODO: check if pokemon is stored in favourites
+  const catchBtnVisibility = isStored ? 'hidden' : '';
+  const deleteBtnVisibility = isStored ? '' : 'hidden';
+  const notesBtnVisibility = isStored ? '' : 'hidden'; // TODO: remove notes button here but keep in pokedex.js
   const pokeContainer = document.querySelector('#pokemon-container');
   const html = `
         <article class="flex flex-col bg-poke-gray-dark text-stone-100 rounded-xl shadow">
-          <button class="w-8 self-end mt-1 me-1 hover:cursor-pointer hover:outline-2 rounded-full flex justify-center">
-            <img src="./assets/icons/pokeball.png">
-          </button>
+          <div class="flex justify-end">
+            <button id="${pfxNotes}${data.id}" class="w-7 mt-1 me-1 hover:cursor-pointer hover:outline-2 rounded-md flex justify-center" ${notesBtnVisibility}>
+              <img class="rounded-md" src="./assets/icons/notes.png">
+            </button>
+            <button id="${pfxDelete}${data.id}" class="w-7 mt-1 me-1 hover:cursor-pointer hover:outline-2 rounded-full flex justify-center" ${deleteBtnVisibility}>
+              <img class="bg-white rounded-full" src="./assets/icons/delete.png">
+            </button>
+            <button id="${pfxCatch}${data.id}" class="w-7 mt-1 me-1 hover:cursor-pointer hover:outline-2 rounded-full flex justify-center" ${catchBtnVisibility}>
+              <img src="./assets/icons/pokeball.png">
+            </button>
+          </div>
           <div class="flex md:flex-col justify-evenly gap-2">
             <img class="grow-1" src="${data.sprites.front_shiny}" alt="">
             <div class="flex flex-col grow-4 justify-center">
@@ -66,4 +81,36 @@ function createCard(data) {
           </div>
         </article>`;
   pokeContainer.insertAdjacentHTML('beforeend', html);
+  document.querySelector(`#${pfxNotes}${data.id}`).onclick = notesBtnClicked; // TODO: remove notes button here but keep in pokedex.js
+  document.querySelector(`#${pfxDelete}${data.id}`).onclick = deleteBtnClicked;
+  document.querySelector(`#${pfxCatch}${data.id}`).onclick = catchBtnClicked;
+}
+
+// TODO: remove notes button here but keep in pokedex.js
+function notesBtnClicked(e) {
+  console.log('notes button clicked');
+}
+
+function deleteBtnClicked(e) {
+  console.log('delete button clicked');
+  const deleteBtn = e.target.id.startsWith(pfxDelete)
+    ? e.target
+    : e.target.parentElement;
+  const id = deleteBtn.id.split('-').pop();
+  const catchBtn = document.querySelector(`#${pfxCatch}${id}`);
+  deleteBtn.hidden = true;
+  catchBtn.hidden = false;
+  // delete Pokemon from favourites
+}
+
+function catchBtnClicked(e) {
+  console.log('catch button clicked');
+  const catchBtn = e.target.id.startsWith(pfxCatch)
+    ? e.target
+    : e.target.parentElement;
+  const id = catchBtn.id.split('-').pop();
+  const deleteBtn = document.querySelector(`#${pfxDelete}${id}`);
+  catchBtn.hidden = true;
+  deleteBtn.hidden = false;
+  // store pokemon in favourites
 }
