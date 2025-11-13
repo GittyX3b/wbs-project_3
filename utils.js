@@ -1,6 +1,7 @@
 const pfxCatch = 'catch-';
 const pfxDelete = 'delete-';
 const pfxNotes = 'notes-';
+const pfxArticle = 'article-';
 
 export function createCard(data, isStored = false) {
   const catchBtnVisibility = isStored ? 'hidden' : '';
@@ -8,7 +9,7 @@ export function createCard(data, isStored = false) {
   const notesBtnVisibility = isStored ? '' : 'hidden';
   const pokeContainer = document.querySelector('#pokemon-container');
   const html = `
-        <article class="flex flex-col bg-poke-gray-dark text-stone-100 rounded-xl shadow">
+        <article id="${pfxArticle}${data.id}" class="flex flex-col bg-poke-gray-dark text-stone-100 rounded-xl shadow">
           <div class="flex justify-end">
             <button id="${pfxNotes}${data.id}" class="w-7 mt-1 me-1 hover:cursor-pointer hover:outline-2 rounded-md flex justify-center" ${notesBtnVisibility}>
               <img class="rounded-md" src="./assets/icons/notes.png">
@@ -53,37 +54,27 @@ export function catchBtnFromPokemon(pokemon) {
   deleteBtn.hidden = false;
 }
 
-export function pokeIdFromCatchEvent(e) {
-  return pokeIdFromEvent(e, pfxCatch);
-}
-
 export function catchBtnFromPokeId(pokeId) {
   return btnFromPokeId(pokeId, pfxCatch);
-}
-
-export function pokeIdFromDeleteEvent(e) {
-  return pokeIdFromEvent(e, pfxDelete);
 }
 
 export function deleteBtnFromPokeId(pokeId) {
   return btnFromPokeId(pokeId, pfxDelete);
 }
 
-export function pokeIdFromNotesEvent(e) {
-  return pokeIdFromEvent(e, pfxNotes);
-}
-
 export function notesBtnFromPokeId(pokeId) {
   return btnFromPokeId(pokeId, pfxNotes);
+}
+
+export function articleFromPokeId(pokeId) {
+  return btnFromPokeId(pokeId, pfxArticle);
 }
 
 function btnFromPokeId(pokeId, prefix) {
   return document.querySelector(`#${prefix}${pokeId}`);
 }
 
-function pokeIdFromEvent(e, prefix) {
-  const btn = e.target.id.startsWith(prefix)
-    ? e.target
-    : e.target.parentElement;
-  return btn.id.split('-').pop();
+export function pokeIdFromEvent(e) {
+  const element = e.target.closest('button') ?? e.target.closest('article');
+  return element.id.split('-').pop();
 }

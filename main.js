@@ -1,10 +1,10 @@
 import {
   createCard,
-  pokeIdFromCatchEvent,
+  pokeIdFromEvent,
   catchBtnFromPokeId,
-  pokeIdFromDeleteEvent,
   deleteBtnFromPokeId,
 } from './utils.js';
+
 const URL = 'https://pokeapi.co/api/v2/pokemon/';
 const numberToFetch = 10;
 
@@ -49,7 +49,7 @@ function createPage(pokeArr) {
 function deleteBtnClicked(e) {
   console.log('delete button clicked');
   console.log('catch button clicked');
-  const pokeId = pokeIdFromDeleteEvent(e);
+  const pokeId = pokeIdFromEvent(e);
   catchBtnFromPokeId(pokeId).hidden = false;
   deleteBtnFromPokeId(pokeId).hidden = true;
   // delete Pokemon from favourites
@@ -57,7 +57,7 @@ function deleteBtnClicked(e) {
 
 function catchBtnClicked(e) {
   console.log('catch button clicked');
-  const pokeId = pokeIdFromCatchEvent(e);
+  const pokeId = pokeIdFromEvent(e);
   catchBtnFromPokeId(pokeId).hidden = true;
   deleteBtnFromPokeId(pokeId).hidden = false;
   // store pokemon in favourites
