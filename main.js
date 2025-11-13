@@ -5,6 +5,8 @@ import {
   deleteBtnFromPokeId,
 } from './utils.js';
 
+import { storePokemon, deletePokemon } from './storeage.js';
+
 const URL = 'https://pokeapi.co/api/v2/pokemon/';
 const numberToFetch = 10;
 
@@ -19,12 +21,7 @@ let pokeArr = [];
 
     // Create all fetch requests first
     for (let i = 1; i <= numberToFetch; i++) {
-      promiseArr.push(
-        fetch(`${URL}${i}`).then((res) => {
-          if (!res.ok) throw new Error('res.ok = false');
-          return res.json();
-        })
-      );
+      promiseArr.push(fetchPokemon(i));
     }
 
     // Wait for all to finish...
@@ -36,6 +33,13 @@ let pokeArr = [];
     console.error(error);
   }
 })();
+
+function fetchPokemon(id) {
+  return fetch(`${URL}${id}`).then((res) => {
+    if (!res.ok) throw new Error('res.ok = false');
+    return res.json();
+  });
+}
 
 /* SCHEDULE ===============================*/
 function createPage(pokeArr) {
@@ -51,13 +55,13 @@ function deleteBtnClicked(e) {
   const pokeId = pokeIdFromEvent(e);
   catchBtnFromPokeId(pokeId).hidden = false;
   deleteBtnFromPokeId(pokeId).hidden = true;
-  // delete Pokemon from favourites
+  deletePokemon(pokeId);
 }
 
-function catchBtnClicked(e) {
+async function catchBtnClicked(e) {
   console.log('catch button clicked');
   const pokeId = pokeIdFromEvent(e);
   catchBtnFromPokeId(pokeId).hidden = true;
   deleteBtnFromPokeId(pokeId).hidden = false;
-  // store pokemon in favourites
+  storePokemon(await fetchPokemon(pokeId));
 }
