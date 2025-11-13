@@ -41,10 +41,63 @@
       id="wrapper"
       class="max-w-[1440px] w-full mx-auto flex flex-col min-h-screen"
     >
-      <header class="h-20 w-full">
-        <i class="icon font-icons">&#xf0c9;</i>
-        <i class="icon font-icons">&#xe800;</i>
-        <i class="icon font-icons">&#xe803;</i>
+      <header
+        class="flex flex-col md:flex-row items-center w-full bg-poke-gray-dark p-5 text-poke-gray-light mb-10"
+      >
+        <div
+          class="w-full md:w-1/4 flex items-center justify-between md:justify-start"
+        >
+          <a href="index.html" class="flex items-center hover:text-poke-red">
+            <img
+              src="assets/icons/pokeball.png"
+              width="24"
+              height="24"
+              alt=""
+              class="block w-[24px] h-[24px] mr-2"
+            />
+            PokedexDiary
+          </a>
+          <div id="" class="md:hidden">
+            <i id="menu-o" class="icon font-icons text-white">&#xf0c9;</i>
+            <i id="menu-c" class="icon font-icons text-white hidden"
+              >&#xe800;</i
+            >
+          </div>
+        </div>
+        <div
+          class="w-full md:3/4 hidden md:flex items-center justify-between md:justify-end"
+        >
+          <form method="get" class="flex items-center mr-5 md:mr-10">
+            <div class="flex items-center relative mr-2 md:mr-5">
+              <label for="search" class="sr-only">Search</label>
+              <input
+                id="search"
+                name="search"
+                type="text"
+                placeholder="Your pokemon"
+                class="w-[150px] md:w-[200px] bg-white p-1 placeholder-poke-gray-dark outline-none focus:ring-2 focus:ring-poke-red focus:ring-offset-2"
+              />
+              <i class="icon font-icons text-poke-gray-dark absolute left-[85%]"
+                >&#xe803;</i
+              >
+            </div>
+            <button
+              type="button"
+              class="cursor-pointer bg-poke-red px-2 py-1 hover:text-poke-gray-dark"
+            >
+              Search
+            </button>
+          </form>
+          <a
+            href="pokedex.html"
+            class="group flex justify-center items-center hover:text-poke-red"
+            ><i
+              class="icon font-icons text-white mr-2 group-hover:text-poke-red"
+              >&#xe802;</i
+            >
+            Favorites</a
+          >
+        </div>
       </header>
 
       <main class="flex-grow">
