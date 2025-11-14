@@ -10,10 +10,17 @@ import {
   getSearchResults,
 } from './utils.js';
 
-import { Pokemon, storePokemon, deletePokemon, isStored } from './storeage.js';
+import {
+  Pokemon,
+  storePokemon,
+  deletePokemon,
+  isStored,
+  loadStoreage,
+} from './storeage.js';
 
 const URL = 'https://pokeapi.co/api/v2/pokemon/';
 const numberToFetch = 10;
+const favouriteHeaderIcon = document.querySelector('#favourite-icon');
 
 let pokeArr = [];
 
@@ -34,6 +41,7 @@ let pokeArr = [];
 
     // ...and render page if pokeArr is filled
     createGrid(pokeArr);
+    setFavouriteIconColor();
   } catch (error) {
     console.error(error);
   }
@@ -74,6 +82,7 @@ function deleteBtnClicked(e) {
   catchBtnFromPokeId(pokeId).hidden = false;
   deleteBtnFromPokeId(pokeId).hidden = true;
   deletePokemon(pokeId);
+  setFavouriteIconColor();
 }
 
 async function catchBtnClicked(e) {
@@ -81,5 +90,20 @@ async function catchBtnClicked(e) {
   const pokeId = pokeIdFromEvent(e);
   catchBtnFromPokeId(pokeId).hidden = true;
   deleteBtnFromPokeId(pokeId).hidden = false;
-  storePokemon(await fetchPokemon(pokeId));
+  //storePokemon(await fetchPokemon(pokeId));
+  fetchPokemon(pokeId).then((pokemonData) => {
+    storePokemon(pokemonData);
+    setFavouriteIconColor();
+  });
+}
+
+function setFavouriteIconColor() {
+  const storedPokemon = loadStoreage();
+  if (storedPokemon.length > 0) {
+    favouriteHeaderIcon.classList.add('text-poke-red');
+    favouriteHeaderIcon.classList.remove('text-white');
+  } else {
+    favouriteHeaderIcon.classList.add('text-white');
+    favouriteHeaderIcon.classList.remove('text-poke-red');
+  }
 }
