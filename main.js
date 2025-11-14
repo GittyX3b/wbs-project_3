@@ -3,6 +3,9 @@ import {
   pokeIdFromEvent,
   catchBtnFromPokeId,
   deleteBtnFromPokeId,
+  searchInput,
+  searchButton,
+  getSearchResults,
 } from './utils.js';
 
 import { Pokemon, storePokemon, deletePokemon, isStored } from './storeage.js';
@@ -33,6 +36,14 @@ let pokeArr = [];
     console.error(error);
   }
 })();
+
+searchInput.addEventListener('input', (e) => {
+  getSearchResults(e, pokeArr);
+});
+
+searchButton.addEventListener('click', (e) => {
+  getSearchResults(e, pokeArr);
+});
 
 function fetchPokemon(id) {
   return fetch(`${URL}${id}`).then((res) => {

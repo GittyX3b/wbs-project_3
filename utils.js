@@ -2,6 +2,8 @@ const pfxCatch = 'catch-';
 const pfxDelete = 'delete-';
 const pfxNotes = 'notes-';
 const pfxArticle = 'article-';
+export const searchInput = document.querySelector('#search');
+export const searchButton = document.querySelector('#search-button');
 
 export function createCard(pokemon, isStored = false) {
   const catchBtnVisibility = isStored ? 'hidden' : '';
@@ -66,4 +68,43 @@ function btnFromPokeId(pokeId, prefix) {
 export function pokeIdFromEvent(e) {
   const element = e.target.closest('button') ?? e.target.closest('article');
   return element.id.split('-').pop();
+}
+
+export function getSearchResults(event, array) {
+  let errorContainer = document.querySelector('.error');
+  if (errorContainer) {
+    errorContainer.remove();
+  }
+  const query = searchInput.value.toLowerCase();
+  if (query === '') {
+    const cards = document.querySelectorAll('article');
+    cards.forEach((card) => {
+      card.classList.remove('hidden');
+    });
+  } else {
+    let cardFound = false;
+    array.forEach((item) => {
+      const card = document.querySelector(`#article-${item.id}`);
+      if (!item.name.toLowerCase().includes(query)) {
+        card.classList.add('hidden');
+      } else {
+        cardFound = true;
+        card.classList.remove('hidden');
+      }
+    });
+    if (cardFound === false) {
+      if (!errorContainer) {
+        errorContainer = document.createElement('div');
+        errorContainer.textContent = 'Keine Pokemons gefunden';
+        errorContainer.classList.add(
+          'error',
+          'text-poke-red',
+          'text-center',
+          'text-2xl'
+        );
+        const mainContainer = document.querySelector('main');
+        mainContainer.prepend(errorContainer);
+      }
+    }
+  }
 }
