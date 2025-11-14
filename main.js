@@ -3,8 +3,10 @@ import {
   pokeIdFromEvent,
   catchBtnFromPokeId,
   deleteBtnFromPokeId,
+  menuOpen,
+  menuClose,
+  toggleMenu,
   searchInput,
-  searchButton,
   getSearchResults,
 } from './utils.js';
 
@@ -41,8 +43,12 @@ searchInput.addEventListener('input', (e) => {
   getSearchResults(e, pokeArr);
 });
 
-searchButton.addEventListener('click', (e) => {
-  getSearchResults(e, pokeArr);
+menuOpen.addEventListener('click', (e) => {
+  toggleMenu(e);
+});
+
+menuClose.addEventListener('click', (e) => {
+  toggleMenu(e);
 });
 
 function fetchPokemon(id) {

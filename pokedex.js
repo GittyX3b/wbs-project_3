@@ -4,14 +4,32 @@ import {
   articleFromPokeId,
   deleteBtnFromPokeId,
   notesBtnFromPokeId,
+  menuOpen,
+  menuClose,
+  toggleMenu,
+  searchInput,
+  getSearchResults,
 } from './utils.js';
 
 import { loadStoreage, deletePokemon } from './storeage.js';
 
 showFavourites();
 
+searchInput.addEventListener('input', (e) => {
+  getSearchResults(e, loadStoreage());
+});
+
+menuOpen.addEventListener('click', (e) => {
+  toggleMenu(e);
+});
+
+menuClose.addEventListener('click', (e) => {
+  toggleMenu(e);
+});
+
 function showFavourites() {
   const favourites = loadStoreage();
+  console.log(favourites);
   document.querySelector('#pokemon-container').textContent = '';
   favourites.forEach((pokemon) => {
     const isStored = true;

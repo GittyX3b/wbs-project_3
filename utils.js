@@ -2,8 +2,10 @@ const pfxCatch = 'catch-';
 const pfxDelete = 'delete-';
 const pfxNotes = 'notes-';
 const pfxArticle = 'article-';
+export const menuOpen = document.querySelector('#menu-o');
+export const menuClose = document.querySelector('#menu-c');
 export const searchInput = document.querySelector('#search');
-export const searchButton = document.querySelector('#search-button');
+export const searchContainer = document.querySelector('#search-container');
 
 export function createCard(pokemon, isStored = false) {
   const catchBtnVisibility = isStored ? 'hidden' : '';
@@ -70,26 +72,29 @@ export function pokeIdFromEvent(e) {
   return element.id.split('-').pop();
 }
 
-export function getSearchResults(event, array) {
+export function getSearchResults(e, cardArray) {
   let errorContainer = document.querySelector('.error');
-  if (errorContainer) {
-    errorContainer.remove();
-  }
   const query = searchInput.value.toLowerCase();
   if (query === '') {
     const cards = document.querySelectorAll('article');
     cards.forEach((card) => {
       card.classList.remove('hidden');
+      if (errorContainer) {
+        errorContainer.remove();
+      }
     });
   } else {
     let cardFound = false;
-    array.forEach((item) => {
+    cardArray.forEach((item) => {
       const card = document.querySelector(`#article-${item.id}`);
       if (!item.name.toLowerCase().includes(query)) {
         card.classList.add('hidden');
       } else {
         cardFound = true;
         card.classList.remove('hidden');
+        if (errorContainer) {
+          errorContainer.remove();
+        }
       }
     });
     if (cardFound === false) {
@@ -106,5 +111,15 @@ export function getSearchResults(event, array) {
         mainContainer.prepend(errorContainer);
       }
     }
+  }
+}
+
+export function toggleMenu(e) {
+  menuOpen.classList.toggle('hidden');
+  menuClose.classList.toggle('hidden');
+  if (e.target.id === 'menu-c') {
+    searchContainer.classList.add('hidden');
+  } else if (e.target.id === 'menu-o') {
+    searchContainer.classList.remove('hidden');
   }
 }
