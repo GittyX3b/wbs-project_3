@@ -39,10 +39,10 @@
   <body class="bg-poke-gray-light min-h-screen flex flex-col">
     <div
       id="wrapper"
-      class="max-w-[1440px] w-full mx-auto flex flex-col min-h-screen"
+      class="max-w-[1440px] w-full mx-auto flex flex-col min-h-screen select-none bg-[url('./assets/images/bg-image-1.webp')] bg-fixed"
     >
       <header
-        class="flex flex-col md:flex-row items-center w-full bg-poke-gray-dark p-5 text-poke-gray-light mb-10 sticky top-0 shadow-[0_25px_25px_rgba(255,255,255,0.25)]"
+        class="flex flex-col md:flex-row items-center w-full bg-poke-gray-dark p-5 text-poke-gray-light mb-10 sticky top-0 shadow-[0_25px_25px_rgba(255,255,255,0.25)] z-100"
       >
         <div
           class="w-full md:w-1/4 flex items-center justify-between md:justify-start"
@@ -55,7 +55,7 @@
               alt=""
               class="block w-[24px] h-[24px] mr-2"
             />
-            PokedexDiary
+            <span class="text-2xl">PokedexDiary</span>
           </a>
           <div id="toggle-menu" class="md:hidden">
             <i id="menu-o" class="icon font-icons text-white">&#xf0c9;</i>
@@ -77,7 +77,7 @@
                   name="search"
                   type="text"
                   placeholder="Your pokemon"
-                  class="w-[150px] md:w-[200px] bg-white p-1 placeholder-poke-gray-dark outline-none focus:ring-2 focus:ring-poke-red focus:ring-offset-2"
+                  class="w-[150px] md:w-[200px] bg-white p-1 placeholder-poke-gray-dark text-poke-gray-dark outline-none focus:ring-2 focus:ring-poke-red focus:ring-offset-2 rounded"
                 />
                 <i
                   class="icon font-icons text-poke-gray-dark absolute left-[85%]"
@@ -86,7 +86,7 @@
               </div>
               <button
                 type="button"
-                class="cursor-pointer bg-poke-red px-2 py-1 hover:text-poke-gray-dark"
+                class="cursor-pointer bg-poke-red px-2 py-1 hover:text-poke-gray-dark rounded"
               >
                 Search
               </button>

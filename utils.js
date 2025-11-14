@@ -22,7 +22,7 @@ export function createCard(data, isStored = false) {
             </button>
           </div>
           <div class="flex md:flex-col gap-2 h-full">
-            <img class="grow-1 p-10 max-w-1/4 min-w-[10rem] scale-100 md:max-w-2/3 lg:max-h-2/3 mx-auto drop-shadow-[0_0_15px_rgba(0,0,0,1)]" src="${data.sprites.other.dream_world.front_default}" alt="">
+            <img class="grow-1 p-10 max-w-1/4 min-w-[10rem] scale-100 md:max-w-2/3 lg:max-h-2/3 mx-auto drop-shadow-[0_0_15px_rgba(0,0,0,1)]" src="${data.sprites.other.dream_world.front_default}"  alt="${data.name}" draggable="false">
             <div class="flex flex-col grow justify-center max-w-2/3 md:max-w-full px-5 lg:p-2">
               <h2 class="font-semibold capitalize text-center mb-4 text-lg">${data.name}</h2>
               <div class="flex gap-2 items-center justify-between w-full px-3">
