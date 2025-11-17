@@ -34,7 +34,7 @@ export function deletePokemon(id) {
 }
 
 export function isStored(id) {
-  return loadStoreage().find((pokemon) => (pokemon.id = id));
+  return loadStoreage().find((pokemon) => pokemon.id === id);
 }
 
 export function loadStoreage() {
