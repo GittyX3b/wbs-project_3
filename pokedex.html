@@ -98,14 +98,60 @@
         </div>
       </header>
 
-      <main class="flex-grow mx-5 mb-10">
+      <main class="flex-grow">
         <div
           id="pokemon-container"
-          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-2 md:p-5"
+          class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 p-2 px-5 pb-10 md:p-5"
         >
           <!-- Pokémon cards will be populated here -->
         </div>
       </main>
+
+      <aside
+        id="dialog-container"
+        class="hidden bg-[rgba(255,255,255,0.6)] absolute bottom-0 w-full h-full flex justify-center items-center z-100"
+      >
+        <dialog
+          open
+          class="m-auto w-[90%] h-[70%] md:w-[60%] p-6 rounded shadow-xl bg-white border-3 border-poke-gray-light"
+        >
+          <form
+            id="note-form"
+            class="flex flex-col gap-4 justify-between h-full"
+          >
+            <div class="flex justify-between">
+              <label
+                for="note-text"
+                class="text-2xl font-semibold text-gray-700"
+              >
+                Notes for
+                <span id="note-name" class="capitalize font-mono"
+                  >PLATZHALTER</span
+                >
+              </label>
+              <i
+                id="btn-close-note"
+                class="icon font-icons text-white bg-poke-red rounded-full px-2 cursor-pointer"
+                >&#xe801;</i
+              >
+            </div>
+
+            <textarea
+              id="note-area"
+              name="note-text"
+              class="w-full h-full p-3 rounded bg-gray-100 border border-gray-300 focus:outline-none focus:ring focus:ring-blue-300 resize-none placeholder:italic"
+              placeholder="Your notes here..."
+            ></textarea>
+
+            <button
+              id="btn-save-note"
+              class="self-end bg-poke-green text-black w-full px-6 py-2 rounded-lg cursor-pointer"
+            >
+              Save
+            </button>
+          </form>
+        </dialog>
+      </aside>
 
       <footer class="bg-poke-gray-dark h-15 w-full p-5">
         <div

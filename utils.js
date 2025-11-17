@@ -69,7 +69,7 @@ function btnFromPokeId(pokeId, prefix) {
 
 export function pokeIdFromEvent(e) {
   const element = e.target.closest('button') ?? e.target.closest('article');
-  return element.id.split('-').pop();
+  return Number(element.id.split('-').pop());
 }
 
 export function getSearchResults(e, cardArray) {

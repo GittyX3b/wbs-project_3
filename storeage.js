@@ -26,22 +26,21 @@ export function storePokemon(data) {
 }
 
 export function deletePokemon(id) {
-  console.log(id);
   let pokemons = loadStoreage();
-  console.log(pokemons);
   pokemons = pokemons.filter((pokemon) => pokemon.id != id);
-  console.log(pokemons);
-  writeStoreage(pokemons);
+  pokemons.length > 0
+    ? writeStoreage(pokemons)
+    : localStorage.removeItem(POKEMONS);
 }
 
 export function isStored(id) {
-  return loadStoreage().find((pokemon) => pokemon.id == id);
+  return loadStoreage().find((pokemon) => (pokemon.id = id));
 }
 
 export function loadStoreage() {
   return JSON.parse(localStorage.getItem(POKEMONS)) ?? [];
 }
 
-function writeStoreage(pokemons) {
+export function writeStoreage(pokemons) {
   localStorage.setItem(POKEMONS, JSON.stringify(pokemons));
 }
