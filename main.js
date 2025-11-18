@@ -8,15 +8,15 @@ import {
   toggleMenu,
   searchInput,
   getSearchResults,
-} from './utils.js';
+} from './modules/ui.js';
 
 import {
   Pokemon,
   storePokemon,
   deletePokemon,
   isStored,
-  loadStoreage,
-} from './storeage.js';
+  loadStorage,
+} from './modules/storage.js';
 
 const URL = 'https://pokeapi.co/api/v2/pokemon/';
 const numberToFetch = 25;
@@ -88,7 +88,6 @@ async function catchBtnClicked(e) {
   const pokeId = pokeIdFromEvent(e);
   catchBtnFromPokeId(pokeId).hidden = true;
   deleteBtnFromPokeId(pokeId).hidden = false;
-  //storePokemon(await fetchPokemon(pokeId));
   fetchPokemon(pokeId).then((pokemonData) => {
     storePokemon(pokemonData);
     setFavouriteIconColor();
@@ -96,7 +95,7 @@ async function catchBtnClicked(e) {
 }
 
 function setFavouriteIconColor() {
-  const storedPokemon = loadStoreage();
+  const storedPokemon = loadStorage();
   if (storedPokemon.length > 0) {
     favouriteHeaderIcon.classList.add('text-poke-red');
     favouriteHeaderIcon.classList.remove('text-white');

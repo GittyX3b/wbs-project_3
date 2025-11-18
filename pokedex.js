@@ -1,7 +1,6 @@
 import {
   createCard,
   pokeIdFromEvent,
-  articleFromPokeId,
   deleteBtnFromPokeId,
   notesBtnFromPokeId,
   menuOpen,
@@ -9,9 +8,9 @@ import {
   toggleMenu,
   searchInput,
   getSearchResults,
-} from './utils.js';
+} from './modules/ui.js';
 
-import { loadStoreage, writeStoreage, deletePokemon } from './storeage.js';
+import { loadStorage, writeStorage, deletePokemon } from './modules/storage.js';
 
 const note = document.querySelector('#dialog-container');
 const noteName = document.querySelector('#note-name');
@@ -22,7 +21,7 @@ const btnSaveNote = document.querySelector('#btn-save-note');
 showFavourites();
 
 searchInput.addEventListener('input', (e) => {
-  getSearchResults(e, loadStoreage());
+  getSearchResults(e, loadStorage());
 });
 
 menuOpen.addEventListener('click', (e) => {
@@ -34,7 +33,7 @@ menuClose.addEventListener('click', (e) => {
 });
 
 function showFavourites() {
-  const favourites = loadStoreage();
+  const favourites = loadStorage();
   document.querySelector('#pokemon-container').textContent = '';
   favourites.forEach((pokemon) => {
     const isStored = true;
@@ -54,7 +53,7 @@ function deleteBtnClicked(e) {
 
 function notesBtnClicked(e) {
   const pokeId = pokeIdFromEvent(e);
-  const storedData = loadStoreage();
+  const storedData = loadStorage();
   const i = storedData.findIndex((item) => item.id === pokeId);
   const pokeSet = storedData.splice(i, 1)[0];
   noteName.textContent = pokeSet.name;
@@ -69,7 +68,7 @@ function notesBtnClicked(e) {
   btnSaveNote.addEventListener('click', (e) => {
     e.preventDefault();
     pokeSet.notes = noteArea.value;
-    writeStoreage([pokeSet, ...storedData]);
+    writeStorage([pokeSet, ...storedData]);
     note.classList.add('hidden');
   });
 }

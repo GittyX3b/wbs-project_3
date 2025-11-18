@@ -20,27 +20,27 @@ export class Pokemon {
 }
 
 export function storePokemon(data) {
-  const pokemons = loadStoreage();
+  const pokemons = loadStorage();
   pokemons.push(new Pokemon(data));
-  writeStoreage(pokemons);
+  writeStorage(pokemons);
 }
 
 export function deletePokemon(id) {
-  let pokemons = loadStoreage();
-  pokemons = pokemons.filter((pokemon) => pokemon.id != id);
+  let pokemons = loadStorage();
+  pokemons = pokemons.filter((pokemon) => pokemon.id !== id);
   pokemons.length > 0
-    ? writeStoreage(pokemons)
+    ? writeStorage(pokemons)
     : localStorage.removeItem(POKEMONS);
 }
 
 export function isStored(id) {
-  return loadStoreage().find((pokemon) => pokemon.id === id);
+  return loadStorage().find((pokemon) => pokemon.id === id);
 }
 
-export function loadStoreage() {
+export function loadStorage() {
   return JSON.parse(localStorage.getItem(POKEMONS)) ?? [];
 }
 
-export function writeStoreage(pokemons) {
+export function writeStorage(pokemons) {
   localStorage.setItem(POKEMONS, JSON.stringify(pokemons));
 }
